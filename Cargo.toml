@@ -1,26 +1,22 @@
 [package]
-name = "zero_byte"
+name = "zerobyte"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+actix-web = "4.11.0"
+anyhow = "1.0"
+base64 = "0.22.1"
+chrono = "0.4"
 image = "0.24"
-img_hash = "3.2"
-sha2 = "0.10"
-hex = "0.4"
-clap = { version = "4.3", features = ["derive"] }
+imagehash = "0.3.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-chrono = "0.4"
-axum = "0.8.4"
-tokio = { version = "1.44.2", features = ["rt-multi-thread", "macros"] }
-
-
-noir_rs = { git = "https://github.com/visoftsolutions/noir_rs.git", branch = "latest", package = "noir_rs" }
-base64 = "0.22.1"
-nargo = { git = "https://github.com/noir-lang/noir", package = "nargo" }
-noirc_abi = { git = "https://github.com/noir-lang/noir" }
-acir = "0.46.0"
-rustdct = "0.7.1"
-log = "0.4.27"
+sha2 = "0.10"
+tokio = { version = "1.0", features = ["full"] }
+hex = "0.4"
+acvm-backend-barretenberg = "0.12.0"  
+acvm = "0.46.0"
+num-bigint = "0.4.6"
+noir_rs = { git = "https://github.com/zkpassport/noir_rs.git", tag = "v1.0.0-beta.3-1", features = ["barretenberg"] }
 
