@@ -1,23 +1,30 @@
-use axum;
-use routes::routes;
-use std::net::SocketAddr;
-
-
-mod routes;
 mod handlers;
 mod models;
+mod services;
+mod utils;
+use std::sync::Arc;
 
-#[tokio::main]
-async fn main() {
-    let app = routes();
-    let addr = SocketAddr::from(([0, 0, 0, 0], 8000));
+use actix_web::{web, App, HttpServer};
+use handlers::proof::generate_proof;
+use utils::circuits::load_circuit;
+use acvm_backend_barretenberg::Barretenberg;
+
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    let circuit = load_circuit()
+        .expect("Failed to load circuit");
+    let backend = Arc::new(Barretenberg::new());
     
-    println!("🚀 0byte server running on http://{}", addr);
-    
-    axum::serve(
-        tokio::net::TcpListener::bind(addr).await.unwrap(),
-        app.into_make_service()
-    )
+    HttpServer::new(move || {
+        App::new()
+            .app_data(web::Data::new(circuit.clone()))
+            .app_data(web::Data::new(backend.clone()))
+            .service(
+                web::resource("/generate-proof")
+                    .route(web::post().to(generate_proof))
+            )
+    })
+    .bind("127.0.0.1:8080")?
+    .run()
     .await
-    .unwrap();
 }
