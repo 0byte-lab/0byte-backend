@@ -1,2 +1,3 @@
 pub mod phash;
-pub mod witness;
+pub mod embedd;
+pub mod zkp;
