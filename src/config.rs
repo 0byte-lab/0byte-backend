@@ -7,7 +7,7 @@ pub struct Config {
     pub server_addr: String,
 
     pub solana_rpc_url: String,
-    pub solana_keypair_path: String,
+    pub solana_keypair: String,
 
     #[serde(default = "default_log_level")]
     pub log_level: String,
