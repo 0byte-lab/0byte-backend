@@ -4,7 +4,7 @@ use serde::Deserialize;
 #[derive(Deserialize, Debug)]
 pub struct Config {
     #[serde(default = "default_server_addr")]
-    pub server_addr: String,
+    pub port: String,
 
     pub solana_rpc_url: String,
     pub solana_keypair: String,

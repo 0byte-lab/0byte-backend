@@ -13,14 +13,15 @@ use crate::config::SETTINGS;
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
 
-    let bind_addr = &SETTINGS.server_addr;
+    let port = &SETTINGS.port;
+    let addr = format!("0.0.0.0:{}", port);
 
     HttpServer::new(|| {
         App::new()
             .wrap(Logger::default())
             .service(api::proof::generate_proof)
     })
-    .bind(bind_addr.as_str())?
+    .bind(addr)?
     .run()
     .await
 }
