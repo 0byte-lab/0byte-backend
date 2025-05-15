@@ -14,9 +14,8 @@ use std::fs;
 use std::io::Write;
 
 pub async fn anchor_to_solana(hash: &str, proof: &str) -> Result<String, Box<dyn Error>> {
-    // Decode Solana keypair from environment
-    let b64 = env::var("SOLANA_KEYPAIR_B64")
-        .map_err(|_| "SOLANA_KEYPAIR_B64 environment variable not set")?;
+    let b64 = env::var("SOLANA_KEYPAIR")
+        .map_err(|_| "SOLANA_KEYPAIR environment variable not set")?;
     let decoded = base64::decode(&b64)
         .map_err(|e| format!("Failed to decode base64 keypair: {}", e))?;
 
@@ -36,7 +35,7 @@ pub async fn anchor_to_solana(hash: &str, proof: &str) -> Result<String, Box<dyn
     let message = Message::new(&[memo_ix], Some(&payer.pubkey()));
     let tx = Transaction::new(&[&payer], message, recent_blockhash);
 
-    let sig = client.send_and_confirm_transaction(&tx).await?;
+    let sig = client.send_transaction(&tx).await?;
     info!("Anchored on Solana (txn: {})", sig);
 
     Ok(sig.to_string())
