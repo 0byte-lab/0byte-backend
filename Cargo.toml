@@ -29,4 +29,5 @@ solana-sdk = "2.2.2"
 log = "0.4.27"
 spl-memo = "6.0.0"
 shellexpand = "3.1.1"
+actix-cors = "0.7.1"
 

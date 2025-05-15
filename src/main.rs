@@ -1,4 +1,5 @@
 use actix_web::{middleware::Logger, App, HttpServer};
+use actix_cors::Cors;
 use dotenv::dotenv;
 
 mod api;
@@ -19,6 +20,13 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .wrap(Logger::default())
+            .wrap(
+                Cors::default()
+                    .allow_any_origin()
+                    .allow_any_method()
+                    .allow_any_header()
+                    .max_age(3600),
+            )
             .service(api::proof::generate_proof)
     })
     .bind(addr)?
