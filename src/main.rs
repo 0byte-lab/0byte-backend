@@ -1,4 +1,5 @@
 use actix_web::{middleware::Logger, App, HttpServer};
+use actix_cors::Cors;
 use dotenv::dotenv;
 
 mod api;
@@ -13,14 +14,22 @@ use crate::config::SETTINGS;
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
 
-    let bind_addr = &SETTINGS.server_addr;
+    let port = &SETTINGS.port;
+    let addr = format!("0.0.0.0:{}", port);
 
     HttpServer::new(|| {
         App::new()
             .wrap(Logger::default())
+            .wrap(
+                Cors::default()
+                    .allow_any_origin()
+                    .allow_any_method()
+                    .allow_any_header()
+                    .max_age(3600),
+            )
             .service(api::proof::generate_proof)
     })
-    .bind(bind_addr.as_str())?
+    .bind(addr)?
     .run()
     .await
 }
