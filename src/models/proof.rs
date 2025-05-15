@@ -1,17 +1,16 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Deserialize)]
+#[derive(Deserialize)]
 pub struct GenerateRequest {
-    pub image_bytes: Vec<u8>,
-    pub platform_name: String,
+    pub image_bytes: String,      
     pub model_name: String,
+    pub platform_name: String,
+    pub input_token_count: u32,
+    pub output_token_count: u32,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Serialize)]
 pub struct GenerateResponse {
-    pub proof: String,
-    pub image_hash: String,
-    pub timestamp: u64,
-    pub output_hash: String,
-    pub nullifier: String,
+    pub image_bytes: String,       
+    pub transaction_id: String,
 }

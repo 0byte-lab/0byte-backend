@@ -1,6 +1,9 @@
 use image;
 use imagehash;
 
+/* -------------------------------------------------------------------------- */
+/*                                COMPUTE PHASH                               */
+/* -------------------------------------------------------------------------- */
 pub fn compute_phash(image: &image::DynamicImage) -> [u8; 8] {
     // Convert to grayscale first
     let gray_image = image.to_luma8();

@@ -1,30 +1,26 @@
-mod handlers;
-mod models;
-mod services;
-mod utils;
-use std::sync::Arc;
+use actix_web::{middleware::Logger, App, HttpServer};
+use dotenv::dotenv;
 
-use actix_web::{web, App, HttpServer};
-use handlers::proof::generate_proof;
-use utils::circuits::load_circuit;
-use acvm_backend_barretenberg::Barretenberg;
+mod api;
+mod services;
+mod solana;
+mod models;
+mod config;
+
+use crate::config::SETTINGS;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let circuit = load_circuit()
-        .expect("Failed to load circuit");
-    let backend = Arc::new(Barretenberg::new());
-    
-    HttpServer::new(move || {
+    dotenv().ok();
+
+    let bind_addr = &SETTINGS.server_addr;
+
+    HttpServer::new(|| {
         App::new()
-            .app_data(web::Data::new(circuit.clone()))
-            .app_data(web::Data::new(backend.clone()))
-            .service(
-                web::resource("/generate-proof")
-                    .route(web::post().to(generate_proof))
-            )
+            .wrap(Logger::default())
+            .service(api::proof::generate_proof)
     })
-    .bind("127.0.0.1:8080")?
+    .bind(bind_addr.as_str())?
     .run()
     .await
 }
