@@ -16,7 +16,7 @@ COPY . .
 RUN cargo build --release
 
 # -------- Runtime Stage --------
-FROM rust:1.76-slim AS runtime
+FROM rust:1.86.0-slim AS runtime
 
 RUN apt-get update && apt-get install -y \
     ca-certificates \
