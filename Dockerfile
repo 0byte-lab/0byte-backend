@@ -16,7 +16,7 @@ COPY . .
 RUN cargo build --release
 
 # -------- Runtime Stage --------
-FROM debian:bullseye-slim
+FROM rust:1.76-slim AS runtime
 
 RUN apt-get update && apt-get install -y \
     ca-certificates \
