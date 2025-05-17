@@ -1,5 +1,5 @@
 # -------- Build Stage --------
-FROM rust:1.73 as builder
+FROM rust:1.76 as builder
 
 # Create a non-root user for safety
 RUN useradd -m appuser
