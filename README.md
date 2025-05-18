@@ -1,4 +1,20 @@
-# 🛡️ 0Byte Proof Backend (Rust)
+<p align="center">
+  <img src="public/assets/logo-dark.png" alt="0byte logo" width="200"/>
+</p>
+
+<p align="center">
+  <a href="https://www.0byte.tech/">
+    <img src="https://img.shields.io/badge/Get%20Started-1abc9c?style=for-the-badge" alt="Get Started">
+  </a>
+  <a href="https://0byte.tech/verify">
+    <img src="https://img.shields.io/badge/0byte%20Verifer-4C51BF?style=for-the-badge" alt="0byte Verifier">
+  </a>
+  <a href="https://pypi.org/project/zbyte">
+    <img src="https://img.shields.io/badge/PyPI-zbyte-blue?style=for-the-badge" alt="Install from PyPI">
+  </a>
+</p>
+
+# 0Byte Proof Backend (Rust)
 
 The **0Byte backend** is a high-performance Rust service that anchors cryptographic proofs of AI-generated media to the **Solana blockchain**, and embeds that proof into the media file itself. It forms the backend of a broader protocol for verifiable media provenance.
 
